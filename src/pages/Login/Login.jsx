@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { addDoc, collection, getDocs } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { toast } from 'react-toastify'
+import hero from  "../../assets/2J1A1449 final.jpg";
 
 
 const Login = (props) => {
@@ -62,12 +63,14 @@ const Login = (props) => {
   
   return (
     <div>
-      {
       
       <div className="login">
+        
         <div className="login__form">
+          <h1 className="title">Isha and Abhishek</h1>
+          <img src={hero} />  
+          <h3 className="title">Sign in for your Wedding Invitation</h3>
           <form onSubmit={register /* SUBMISSION STAGE TOGGLE NOT WORKING */}>
-            
             <label>Email Address</label>
             <br />
             <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} onInvalid={() => {inputError()}} 
@@ -77,14 +80,14 @@ const Login = (props) => {
             <br />
             <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} onInvalid={() => {inputError()}} 
             className="input password__input" placeholder="password" />
-            <p>Password is wedding</p>
+            <p>Password is wedding2026</p>
 
             <button type='submit' className='login__btn'>Enter</button>
             
           </form>
         </div>
       </div>
-    }
+    
     </div>
   )
 }
