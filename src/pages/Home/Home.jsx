@@ -42,7 +42,7 @@ const Home = (props) => {
 
     
     
-  }, [props.user, invite])
+  }, [])
 
   return (
     <div> 
@@ -50,8 +50,10 @@ const Home = (props) => {
         <p>Isha and Abhishek</p>
         <button onClick={() => {logout()}}>Logout</button> 
       </nav>
-      
-      <iframe src={invite} ></iframe>
+      <div className="invite">
+
+        <iframe src={invite} ></iframe>
+      </div>
     </div>
   )
 }
