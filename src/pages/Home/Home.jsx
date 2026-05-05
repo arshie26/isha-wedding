@@ -14,30 +14,25 @@ import './Home.css'
 
 const Home = (props) => {
 
+  /* ARRAY OF ALL INVITATIONS */
   const invitations = [one, two, three, four, five, six];
 
+  /* STATE VARIABLE FOR INVITATION TO BE DISPLAYED */
   const [invitation, setInvitation] = useState();
 
+  /* LOGOUT FUNCTION */
   function logout(){
     console.log("LOgging out");
     signOut(auth);
   }
 
-  /*if(props.user?.email){
-      for(let i = 0; i < invitations.length; i++){
-        if(i === props.invite - 1){
-          setInvitation(invitations[i]);
-        }
-      }
-      console.log("Homepage invite is ", props.invite);
-  }*/
-
+  /* USEEFFECT HOOK TO RETRIEVE INVITATION
+    ONCE USER HAS LOGGED IN */
   useEffect(() => {
     console.log("Homepage user is now ", props.user)
     props.getInvite().then((invite) => {
       setInvitation(invitations[invite-1])
     })
-
     
   }, [props.user])
 

@@ -11,10 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   
+  /* STATE VARIABLE FOR USER */
   const [authUser, setAuthUser] = useState({});
 
+  /* STATE VARIABLE FOR INVITE VERSION
+      USED IF CALLING GETINVITATION FROM APP */
   const [invite, setInvite] = useState();
 
+  /* ACTIVATE NAVIGATION HOOK */
   const navigate = useNavigate();
 
   
@@ -201,11 +205,26 @@ const App = () => {
   
   */
 
+  /* RETRIEVES INVITATION VERSION NUMBER FOR USER 
+    Retrieves lists of guests from database. Lists
+    are organized by version number, and each email
+    in the list receives that invitation version.
+
+    Finds the version number for this particular user
+
+    Returns the version number
+  */
   async function getInvitation(){
     console.log("getInvite User is now ", authUser)
+    
+    //Gets lists of all guests
     const { docs } = await getDocs(collection(db, "guestlist"));
+    
+    //Declare variable to record invitation version number
     let found;
     console.log("Finding this email ", authUser.email)
+
+    //Go through the lists to find invitation version number for user
     docs.map((rawList) => {
       let list = rawList.data();
       console.log("list is ", list)
@@ -218,9 +237,11 @@ const App = () => {
     return found;
   }
 
+  /* USEEFFECT HOOK FOR AUTHENTICATION */
   useEffect(() => {
     
-    /* IF NO ONE HAS LOGGED IN, REDIRECT USER TO LOGIN SCREEN */
+    /* IF USER IS LOGGED IN, SET STATE VARIABLE TO USER
+    IF NO ONE HAS LOGGED IN, REDIRECT USER TO LOGIN SCREEN */
     onAuthStateChanged(auth, (user) => {
       console.log("App auth has changed", user);
       if(user){
@@ -234,12 +255,6 @@ const App = () => {
       }
     })
   }, [])
-
-  useEffect(() => {
-    if(authUser?.email){
-      getInvitation();
-    }
-  }, [authUser]);
   
   return (
     
