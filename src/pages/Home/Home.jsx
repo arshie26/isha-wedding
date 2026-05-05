@@ -16,33 +16,30 @@ const Home = (props) => {
 
   const invitations = [one, two, three, four, five, six];
 
-  const [invite, setInvite] = useState();
+  const [invitation, setInvitation] = useState();
 
   function logout(){
     console.log("LOgging out");
     signOut(auth);
   }
 
-  if(props.user?.email){
-    props.getInvite().then((found) => { 
-      console.log(found);
+  /*if(props.user?.email){
       for(let i = 0; i < invitations.length; i++){
-        if(i === found - 1){
-          setInvite(invitations[i]);
+        if(i === props.invite - 1){
+          setInvitation(invitations[i]);
         }
       }
-      console.log("Homepage invite is ", invite);
-    });
-    
-  }
+      console.log("Homepage invite is ", props.invite);
+  }*/
 
   useEffect(() => {
-    console.log("Homepage User is now ", props.user)
-    //props.getInvite();
+    console.log("Homepage user is now ", props.user)
+    props.getInvite().then((invite) => {
+      setInvitation(invitations[invite-1])
+    })
 
     
-    
-  }, [])
+  }, [props.user])
 
   return (
     <div> 
@@ -52,7 +49,7 @@ const Home = (props) => {
       </nav>
       <div className="invite">
 
-        <iframe src={invite} ></iframe>
+        <iframe src={invitation} ></iframe>
       </div>
     </div>
   )
